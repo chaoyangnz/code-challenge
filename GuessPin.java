@@ -4,8 +4,8 @@ import java.util.Random;
 public class GuessPin {
     public static void main(String[] args) {
 
-        int[] pin = {3, 2, 4, 3};
-        int[] guess = {1, 3, 3, 3};
+        int[] pin = new int[4];
+        int[] guess = new int[4];
         Random ran = new Random();
         for(int i=0; i < 4; ++i) {
             pin[i] = ran.nextInt(5) + 1;
