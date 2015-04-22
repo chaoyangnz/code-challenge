@@ -27,7 +27,7 @@ public class GuessPin {
         for(int i=0; i < 4; ++i) {
             if(guess[i] == pin[i]) {
                 ++r;
-                guess[i] += 5; // mark for right, also for recovering later
+                guess[i] += 5; // mark for correctness, also for recovering later
             } else {
                 counter[pin[i]]++;
             }
