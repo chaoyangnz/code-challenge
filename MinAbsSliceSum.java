@@ -22,7 +22,7 @@ class Solution {
         int min_abs_sum = abs(A[0]);
         for(int i = 0; i < N; ++i) {
             if(abs(p[i+1]-p[i]) < min_abs_sum) {
-                min_abs_sum = abs(p[i+1]-p[i]);
+                min_abs_sum = abs(p[i+1]-p[i]); // minimum difference between neighbor elements in sorted prefix sums array
             }
         }
         
