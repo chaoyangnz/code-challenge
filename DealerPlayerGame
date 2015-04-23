@@ -1,0 +1,72 @@
+
+import java.util.Random;
+
+/*
+Your challenge is to implement the game described here. Where the description refers to picking a number, 
+it means the computer should pick a random number between 1 and 10.
+
+The computer picks one number for the dealer, and picks two numbers for the player. All these numbers are
+displayed to the player.
+
+The player can ask for the computer to pick more numbers for the player, one at a time, but if the sum of
+their numbers goes over 21 then they have lost the game.
+
+Once the player is happy with their set of numbers, the computer will pick numbers for the dealer until 
+the sum of its numbers is 16 or higher.
+
+If the dealer's numbers sum to more than 21, the player wins the game. Otherwise, the highest-scoring set 
+of numbers wins the game.
+*/
+
+public class DealerPlayerGame {
+
+    private Random random = new Random();
+
+    public static void main(String[] args) {
+        System.out.println(new PlayGame().play());
+    }
+
+    public int play() {
+        // inital pick round
+        System.out.println("dealer's pick:  ");
+        int dealer_pick = pick();
+        System.out.println("player's pick:  ");
+        int player_pick = pick();
+        player_pick += pick();
+
+        // player pick round
+        System.out.println("player continue pick: ");
+        int palyer_again_pick = 0; // foreprict
+        while(player_pick <= 21) {
+            palyer_again_pick = pick();
+            player_pick += palyer_again_pick;
+        }
+
+        System.out.println("player final: " + player_pick);
+        if(player_pick > 21) return -1;
+
+
+        // dealer round
+        System.out.println("dealer continue pick: ");
+        while(dealer_pick <= 16) {
+            int dealer_again_pick = pick();
+            dealer_pick +=dealer_again_pick;
+        }
+
+        System.out.println("dealer final: " + dealer_pick);
+
+        if(dealer_pick > 21) return 1;
+
+        if(player_pick == dealer_pick) return 0;
+
+        return (player_pick > dealer_pick) ? 1 : -1;
+    }
+
+
+
+    private int pick() {
+        int result = random.nextInt(10) + 1;
+        System.out.println(result);
+        return result;
+    }
+}
