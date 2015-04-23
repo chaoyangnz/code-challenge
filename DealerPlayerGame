@@ -1,6 +1,3 @@
-
-import java.util.Random;
-
 /*
 Your challenge is to implement the game described here. Where the description refers to picking a number, 
 it means the computer should pick a random number between 1 and 10.
@@ -18,62 +15,72 @@ If the dealer's numbers sum to more than 21, the player wins the game. Otherwise
 of numbers wins the game.
 */
 
-public class DealerPlayerGame {
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.Random;
+
+public class PlayGame {
 
     private Random random = new Random();
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    private int dealer_sum = 0;
+    private int player_sum = 0;
 
-    public static void main(String[] args) {
-        System.out.println(new PlayGame().play());
+    private static final String WON = "won";
+    private static final String LOST = "lost";
+    private static final String EVEN = "even";
+
+    public static void main(String[] args) throws Exception  {
+        String result = new PlayGame().play();
+        System.out.println("-----final result------");
+        System.out.println(result);
     }
 
-    public int play() {
-        // inital pick round
-        System.out.println("dealer's pick:  ");
-        int dealer_pick = pick();
-        System.out.println("player's pick:  ");
-        int player_pick = pick();
-        player_pick += pick();
+    public String play() throws Exception {
+        System.out.println("-----inital round------");
+        dealer_pick();
+        player_pick();
+        player_pick();
 
-        // player pick round
-        /*
-        As player cannot predict the future pick and cannot revert his last pick, what is the stop-pick time when the player is happy? 
-        he can just know the dealer's price is always over 16, so if the initial pick is below 16, he chooses to pick more numbers. 
-        After his numbers sum is over 16, how does he do? 
-        If aggressive, he will continue to pick. or if conservative, he will stop and be happy.
-        */
-        // So the problem is questionable!!
-        System.out.println("player continue pick: ");
-        int palyer_again_pick = 0; // foreprict
-        while(player_pick <= 21) {
-            palyer_again_pick = pick();
-            player_pick += palyer_again_pick;
+        System.out.println("-----player round------");
+
+        while(true) {
+            System.out.println("Are you happy now? ");
+            if("n".equals(br.readLine())) {
+                player_pick();
+                if(player_sum > 21) return LOST;
+                continue;
+            }
+            break;
         }
 
-        System.out.println("player final: " + player_pick);
-        if(player_pick > 21) return -1;
+        if(player_sum > 21) return LOST;
 
-
-        // dealer round
-        System.out.println("dealer continue pick: ");
-        while(dealer_pick <= 16) {
-            int dealer_again_pick = pick();
-            dealer_pick +=dealer_again_pick;
+        System.out.println("-----dealer round------");
+        while(dealer_sum < 16) {
+            dealer_pick();
         }
 
-        System.out.println("dealer final: " + dealer_pick);
-
-        if(dealer_pick > 21) return 1;
-
-        if(player_pick == dealer_pick) return 0;
-
-        return (player_pick > dealer_pick) ? 1 : -1;
+        if(dealer_sum > 21) return WON;
+        if(player_sum == dealer_sum) return EVEN;
+        return (player_sum > dealer_sum) ? WON : LOST;
     }
 
+    private int player_pick() {
+        int num = pick();
+        player_sum += num;
+        System.out.println("player: " + num + " => " + player_sum);
 
+        return num;
+    }
+
+    private void dealer_pick() {
+        int num = pick();
+        dealer_sum += num;
+        System.out.println("dealer: " + num + " => " + dealer_sum);
+    }
 
     private int pick() {
-        int result = random.nextInt(10) + 1;
-        System.out.println(result);
-        return result;
+        return random.nextInt(10) + 1;
     }
 }
