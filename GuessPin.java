@@ -1,6 +1,10 @@
 import java.util.Arrays;
 import java.util.Random;
-
+/*
+write a simple program in any language that allows a user to guess a 4 digit pin containing only the numbers 1 - 5, 
+If the user did not get the correct answer the program was to tell then how many digits they guessed correctly in 
+the correct place and how many digits they guessed that were in the computers guess but not in the correct place...
+*/
 public class GuessPin {
     public static void main(String[] args) {
 
