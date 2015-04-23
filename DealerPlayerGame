@@ -35,6 +35,11 @@ public class DealerPlayerGame {
         player_pick += pick();
 
         // player pick round
+        // if player cannot predict, when is the player happy?
+        // he can just know the dealder price > 16, so if the intial pick < 16, it picks. 
+        // After his numbers is over 16, how does he do? 
+        // aggressive, continue to pick. or conservative, stop and be happy.
+        // So the problem is questionable!!
         System.out.println("player continue pick: ");
         int palyer_again_pick = 0; // foreprict
         while(player_pick <= 21) {
