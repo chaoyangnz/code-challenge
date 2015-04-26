@@ -54,7 +54,7 @@ public class BlackJackGame {
             break;
         }
 
-        if(player_sum > 21) return LOST;
+        if(player_sum < 16) return LOST;
 
         System.out.println("-----dealer round------");
         while(dealer_sum < 16) {
